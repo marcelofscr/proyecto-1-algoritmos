@@ -7,7 +7,7 @@ A guide showing how to make a Check In and Check out program for tech requiremen
 
 Introduction
 
-TEC-Requerimientos is a computer solucion focus on people who are in charge of an IT deparment, in order to the equiment control easer, faster and quicker.
+TEC-Requerimientos is a computer solucion focus on people who are in charge of an IT deparment, in order to make the equiment control easer, faster and quicker.
 
 Software Requirements specificartions
 
