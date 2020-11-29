@@ -3,7 +3,7 @@ Algorithm and data structures project
 
 TEC-Requerimientos
 
-A guide showing how to make a Check In and Check out program for tech requirements and rund them on CMD Terminal
+A guide showing how to make a Check In and Check out program for tech requirements and run them on CMD Terminal
 
 Introduction
 
