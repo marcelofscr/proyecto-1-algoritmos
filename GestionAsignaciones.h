@@ -1,6 +1,14 @@
+//Marcelo Fernández Solano
+//Steven Vega Zuñiga
+//TEC-Requerimientos
+/* Descripción: TEC-Requerimientos es una solucion computacional creada con el fin de gestionar los miembros y 
+				requerimientos de un proyecto, asi mismo permite la creacion de asignaciones asiciadas con un 
+				miembro y un recurso, y el registro de incidentes */
+				
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct Pila Pila;
 typedef struct Nodo Nodo;
@@ -57,7 +65,6 @@ Nodo* crearNodo(char fecha[], char asignacion[], char horaInicio[], char horaFin
 void push(Pila *P, char fecha[], char asignacion[], char horaInicio[], char horaFinal[], char recurso[])  //Siempre al hacer push se inserta al inicio de la pila
 {
 	Nodo *nuevo = crearNodo(fecha, asignacion, horaInicio, horaFinal, recurso);
-	
 	nuevo->siguiente = P->tope;
 	P->tope = nuevo;
 	P->tamano = P->tamano + 1; 
@@ -111,7 +118,6 @@ void size(Pila *P)
 	printf("La cantidad de asignaciones corresponde a %d\n", P->tamano);
 	return;	
 }
-
 
 void mostrarPila(const Pila *P)
 {

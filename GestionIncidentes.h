@@ -25,6 +25,10 @@ Lista_ k, head;
 Lista_ getnodo_();
 
 void agregarIncidente(Lista_ k, char codigoRequerimiento[10], char codigoAsignacion[10], char descripcionIncidente[90], char fechaActual[100], int i);
+void buscarIncidentePorRequerimiento(char consultaRequerimiento[10]);
+void buscarIncidentePorFecha(char consultaFecha[100]);
+
+//Agregar incidentes nuevos
 
 Lista_ getnodo_(){
     Lista_ k;
@@ -64,10 +68,88 @@ void agregarIncidente(Lista_ k, char codigoRequerimiento[10], char codigoAsignac
 			printf("\nIncidente reportado exitosamente");
 		}
 		
-		z->corre = i;
-		z->sig = k->sig;
-		k->sig = z;
-		k = k->sig;
+		//z->corre = i;
+		//z->sig = k->sig;
+		//k->sig = z;
+		//k = k->sig;
 	}
+}
+
+// Consultar incidentes ya existentes
+
+void buscarIncidentePorRequerimiento(char consultaRequerimiento[10]){
+	
+	int incidentesEncontrados = 0;
+	
+	FILE *fp;
+	fp = fopen("listaIncidentes.csv", "r");
+	
+	if(fp == NULL){
+		printf("Error al cargar el archivo, intente verificar si el archivo existe o permanece abierto\n");
+	}
+	
+	char line[998];
+	
+	while(fgets(line, sizeof(line), fp)){
+		
+		char *token;
+		
+		token = strtok(line, ",");
+		
+		if(strcmp(token, consultaRequerimiento) == 0){
+		
+			while(token != NULL){
+				printf("%12s", token);
+				token = strtok(NULL, ",");
+			}
+			incidentesEncontrados++;
+			printf("\n");
+		}
+	}
+	
+	if(incidentesEncontrados == 0){
+		printf("Lo sentimos, el codigo del requerimiento que ingreso no registra incidentes asociados\n\n");
+	}
+	
+}
+
+void buscarIncidentePorFecha(char consultaFecha[100]){
+	
+	int incidentesEncontrados = 0;
+	
+	FILE *fp;
+	fp = fopen("listaIncidentes.csv", "r");
+	
+	if(fp == NULL){
+		printf("Error al cargar el archivo, intente verificar si el archivo existe o permanece abierto\n");
+	}
+	
+	char line[998];
+	
+	while(fgets(line, sizeof(line), fp)){
+		while(fgets(line, sizeof(line), fp)){
+			
+			char *token;
+			
+			token = strtok(line, ",");
+			
+			if(strcmp(token, consultaFecha) == 0){
+				
+				token = strtok(NULL, ",");
+				
+				while(token != NULL){
+					printf("%12s", token);
+					token = strtok(NULL, ",");
+				}
+				incidentesEncontrados++;
+				printf("\n");
+			}
+		}
+	}
+	
+	if(incidentesEncontrados == 0){
+		printf("Lo sentimos, la fecha que ingreso no presenta incidentes registrados\n\n");
+	}
+	
 }
 
