@@ -39,8 +39,7 @@ void mostrarPila(const Pila *P);
 int isEmpty(Pila *P);
 void clear(Pila *P);
 
-Pila *pilaNueva(void)
-{
+Pila *pilaNueva(void){
 	Pila *P;
 	P = (Pila *) malloc(sizeof(Pila));
 	P->tope = NULL;
@@ -62,7 +61,7 @@ Nodo* crearNodo(char fecha[], char asignacion[], char horaInicio[], char horaFin
 	return nuevo;
 }
 
-void push(Pila *P, char fecha[], char asignacion[], char horaInicio[], char horaFinal[], char recurso[])  //Siempre al hacer push se inserta al inicio de la pila
+void push(Pila *P, char fecha[], char asignacion[], char horaInicio[], char horaFinal[], char recurso[]);  //Siempre al hacer push se inserta al inicio de la pila
 {
 	Nodo *nuevo = crearNodo(fecha, asignacion, horaInicio, horaFinal, recurso);
 	nuevo->siguiente = P->tope;

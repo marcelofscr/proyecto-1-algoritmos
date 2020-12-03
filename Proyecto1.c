@@ -9,9 +9,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #include "GestionMiembros.h"
 #include "GestionRequerimientos.h"
-#include "GestionAsignaciones.h"
+//#include "GestionAsignaciones.h"
 #include "GestionIncidentes.h"
 
 int main(){
@@ -22,19 +23,23 @@ int main(){
     char correo[50];
     char acceso[10];
     
-    int cedulaEncontrada; //Variable para determinar si una cedula ya fie registrada 
-
+    int cedulaEncontrada; //Variable para determinar si una cedula de miembro ya fue registrada 
+    char cedulaConsulta[8]; //Numero de cedula consultada al usuario para consultar miembros
 	
-	char requisito [60]; //Elementos de consula al usuario para agregar requerimientos
-	char tipo [10];
-	char descripcion [100];
-	char riesgo [20];
-	char dependencia [100];
-	char recursos [70];
-	char estado [60];
+	char identificador[10]; //Elementos de consula al usuario para agregar requerimientos
+	char evaluacion[60] = "N/EVAL"; // Estado "No evaluado" al crear un nuevo requerimiento
+	char tipo[10];
+	char descripcion[100];
+	char riesgo[20];
+	char dependencia[100];
+	char recursos[70];
+	char estado[60] = "Activa"; //Estado del requerimiento por omision
 	char esfuerzo [6];
 	
-	char cedulaConsulta[8]; //Elementos de consula al usuario para consultar miembros
+	int requerimientoEncontrados; //Variable para determinar si un cidentificador de requerimiento ya fue registrado
+	char requerimientoPorCalificar[10]; //Consulta identificador de requerimiento que desea calificar
+	char calificacionRequerimiento[10]; //Consulta calificacion otorgada por usuario del requerimiento
+	char requerimientoConsulta[8]; //Elementos de consula al usuario para consultar 
 	
 	char fecha[15]; //Elementos de consula al usuario para agregar asignaciones
 	char prioridad[20];
@@ -50,12 +55,16 @@ int main(){
 	char consultaRequerimiento[10]; //Elemento para consulta de incidentes por codigo requerimiento
 	char consultaFecha[100]; //Elemento para consulta de incidentes por fecha
 	
-	Pila *P;
-	P = pilaNueva();
+//	Pila *P;
+//	P = pilaNueva();
 
     int r, opc = 8, i = 0;
+    
     p = getnodo();
     cabeza = p;
+    
+    R = getnodoRequerimientos();
+    cabezaR = R;
     
     k = getnodo_();
     head = k;
@@ -67,9 +76,9 @@ int main(){
     	printf("\t\t1. Registrar Nuevos Miembros\n");
     	printf("\t\t2. Consultar miembros del equipo\n");
     	printf("\t\t3. Agregar Requerimiento\n");
-    	printf("\t\t4. Calificar Requerimiento\n");
-    	printf("\t\t5. ConsultarRequerimiento\n");
-    	printf("\t\t6. Crear una asignacion\n");
+    	printf("\t\t4. Modificar datos de un requerimiento\n");
+    	printf("\t\t5. Calificar Requerimiento\n");
+    	printf("\t\t6. Consultar Requerimiento\n");
     	printf("\t\t7. Crear una asignacion\n");
     	printf("\t\t8. Consultar una asignacion\n");
     	printf("\t\t9. Cancelar una asignacion\n");
@@ -77,6 +86,7 @@ int main(){
     	printf("\t\t11. Registrar Incidente \n");
     	printf("\t\t12. Consultar Incidente \n");
     	printf("\t\t13. Analisis de datos\n");
+    	printf("\t\t0. Salir\n");
     	printf("\nDigite una opcion para continuar: ");
 		scanf("%d", &opc);
     	
@@ -98,13 +108,13 @@ int main(){
 				
 				i++;
 				
-				cedulaEncontrada = buscarCedula(cedula);
-				printf("%d", cedulaEncontrada);
+				cedulaEncontrada = buscarCedula(cedula); //Permite conocer si existen miembros ya registrados con cedula ingresada
+
 				if(cedulaEncontrada == 0){
 					agregarMiembro(p, cedula, nombre, apellido, telefono, correo, acceso, i);
 				}
 				else{
-					printf("El miembro no se puede ingresa porque la cedula ya fue registrada anteriormente\n");
+					printf("El miembro no se puede ingresar porque la cedula ya fue registrada anteriormente\n");
 				}
 				system("pause");
 				system("cls");
@@ -112,7 +122,7 @@ int main(){
 			
 			case 2: //Consulta miembro del equipo
 				printf("\n\nCONSULTAR MIEMBRO DEL EQUIPO\n\n");
-				printf("Ingrese la cedula que desea consultar: ");
+				printf("Ingrese la cedula que desea consultar (nueve numeros, sin espacios ni guiones): ");
 				scanf("%s", &cedulaConsulta);
 				printf("\n");
 				
@@ -123,7 +133,28 @@ int main(){
 				
 			case 3:
 				printf("\n\nAGREGAR REQUERIMIENTO\n\n");
-				printf("not ready\n");
+				printf("Ingrese el identificador: "); 
+				scanf("%s", &identificador);
+				printf("Ingrese el tipo: "); 
+				scanf("%s", &tipo);
+				printf("Ingrese la descripcion: "); 
+				scanf("%s", &descripcion);
+				printf("Ingrese el riesgo: "); 
+				scanf("%s", &riesgo);
+				printf("Ingrese la dependencia: "); 
+				scanf("%s", &dependencia);
+				printf("Ingrese los recursos: "); 
+				scanf("%s", &recursos);
+				printf("Ingrese el esfuerzo: "); 
+				scanf("%s", &esfuerzo);
+				
+				requerimientoEncontrados = buscarIdentificador(identificador);
+				if(requerimientoEncontrados == 0){
+					agregarRequerimiento(R, identificador, evaluacion, tipo, descripcion, riesgo, dependencia, recursos, estado, esfuerzo, i);
+				}
+				else{
+					printf("El requerimiento no se puede ingresar porque el identificador ya fue registrado anteriormente\n");
+				}
 				system("pause");
 				system("cls");
 				break;
@@ -137,14 +168,21 @@ int main(){
 				
 			case 5:
 				printf("\n\nCALIFICAR REQUERIMIENTO\n\n");
-				printf("not ready\n");
+				printf("Ingrese la calificacion del requerimiento(1 a 100): ");
+				scanf("%s", &calificacionRequerimiento);
+				printf("Ingrese el identificador dek requerimiento que desea calificar (formato RQ-001): ");
+				scanf("%s", &requerimientoPorCalificar);
+				
 				system("pause");
 				system("cls");
 				break;
 				
 			case 6:
 				printf("\n\nCONSULTAR REQUERIMIENTO\n\n");
-				printf("not ready\n");
+				printf("Ingrese el codigo del requerimiento que desea consultar (Formato RQ-001): ");
+				scanf("%s", &requerimientoConsulta);
+				
+				consultarRequerimiento(requerimientoConsulta);
 				system("pause");
 				system("cls");
 				break;
@@ -162,12 +200,12 @@ int main(){
 				printf("Ingrese el recurso asociado con la asignacion: ");
 				scanf("%s", &recurso);
 				
-				push(P, fecha, prioridad, horaInicio, horaFinal, recurso);
+				/*push(P, fecha, prioridad, horaInicio, horaFinal, recurso);
 				
 				printf("\nAsignacion creada:\n");
 				system("pause");
 				system("cls");
-				top(P);
+				top(P);*/
 				
 			case 8:
 				printf("\n\nCONSULTAR ASIGNACIONES PARA UN MIEMBRO DEL EQUIPO\n\n");
@@ -240,6 +278,10 @@ int main(){
 				printf("not ready\n");
 				system("pause");
 				system("cls");
+				break;
+				
+			case 0:
+				printf("\t\t\t\t\t\n\n\n\n\nGRACIAS POR PREFERIRNOS!!!\n");
 				break;			
 		}
 	}

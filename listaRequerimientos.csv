@@ -1,0 +1,11 @@
+RQ-001, N/EVAL,A,Conferencia,Alto,Ninguna,Proyector,Activa,5
+RQ-002, N/EVAL,B,Charla,Alto,Ninguna,Pizarra,Por hacer,16
+RQ-003, N/EVAL,A,Talleres,Bajo,Ninguna,A/C,Mantenimiento,7
+RQ-004, N/EVAL,C,Seminario,Bajo,Ninguna,Parlante,Activa,1
+RQ-005, N/EVAL,B,Meeting,Normal,Ninguna,Computador,Activa,8
+RQ-006, N/EVAL,A,Documental,Normal,Ninguna,Tripode,Activa,3
+RQ-007, N/EVAL,A,Conferencia,Bajo,Ninguna,Proyector,Activa,3
+RQ-008, N/EVAL,C,Entrevista,Bajo,Ninguna,Audiculares,Activa,2
+RQ-009, N/EVAL,B,Capacitacion,Alto,Ninguna,Pizarra,Por hacer,5
+RQ-010, N/EVAL,B,Assessment,Alto,Ninguna,Monitor,Activa,12
+RQ-011, N/EVAL,B,Gereracion,Alto, Ninguna,Parlante,Activa,65
