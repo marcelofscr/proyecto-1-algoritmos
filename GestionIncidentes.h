@@ -19,7 +19,6 @@ struct nodo_{
     struct nodo *sig;
 };
 
-
 typedef struct nodo_ *Lista_;
 Lista_ k, head;
 Lista_ getnodo_();
@@ -60,7 +59,7 @@ void agregarIncidente(Lista_ k, char codigoRequerimiento[10], char codigoAsignac
 		}
 		
 		else{
-			fprintf(fp, "%s, %s, %s, %s\n", k->codigoRequerimiento, k->codigoAsignacion, k->descripcionIncidente, k->fechaActual);
+			fprintf(fp, "%s,%s,%s,%s\n", k->codigoRequerimiento, k->codigoAsignacion, k->descripcionIncidente, k->fechaActual);
 		
 			fclose(fp); //cierra el archivo y finaliza el guardado en memoria
 			fp = 0;
@@ -100,6 +99,7 @@ void buscarIncidentePorRequerimiento(char consultaRequerimiento[10]){
 		
 			while(token != NULL){
 				printf("%12s", token);
+				printf("hola");
 				token = strtok(NULL, ",");
 			}
 			incidentesEncontrados++;
@@ -127,23 +127,22 @@ void buscarIncidentePorFecha(char consultaFecha[100]){
 	char line[998];
 	
 	while(fgets(line, sizeof(line), fp)){
-		while(fgets(line, sizeof(line), fp)){
 			
-			char *token;
+		char *token;
+		
+		token = strtok(line, ",");
+		while(token != NULL){
+			token = strtok(NULL, ",");
+		}
 			
-			token = strtok(line, ",");
-			
-			if(strcmp(token, consultaFecha) == 0){
-				
+		if(strcmp(token, consultaFecha) == 0){
+			token = strtok(NULL, ",");
+			while(token != NULL){
+				printf("%12s", token);
 				token = strtok(NULL, ",");
-				
-				while(token != NULL){
-					printf("%12s", token);
-					token = strtok(NULL, ",");
-				}
-				incidentesEncontrados++;
-				printf("\n");
 			}
+			incidentesEncontrados++;
+			printf("\n");
 		}
 	}
 	

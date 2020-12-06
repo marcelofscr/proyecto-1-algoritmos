@@ -1,7 +1,7 @@
-//Marcelo Fern·ndez Solano
-//Steven Vega ZuÒiga
+//Marcelo Fern√°ndez Solano
+//Steven Vega Zu√±iga
 //TEC-Requerimientos
-/* DescripciÛn: TEC-Requerimientos es una solucion computacional creada con el fin de gestionar los miembros y 
+/* Descripci√≥n: TEC-Requerimientos es una solucion computacional creada con el fin de gestionar los miembros y 
 				requerimientos de un proyecto, asi mismo permite la creacion de asignaciones asiciadas con un 
 				miembro y un recurso, y el registro de incidentes */
 
@@ -133,6 +133,7 @@ int main(){
 				
 			case 3:
 				printf("\n\nAGREGAR REQUERIMIENTO\n\n");
+<<<<<<< HEAD
 				printf("Ingrese el identificador: "); 
 				scanf("%s", &identificador);
 				printf("Ingrese el tipo: "); 
@@ -155,6 +156,9 @@ int main(){
 				else{
 					printf("El requerimiento no se puede ingresar porque el identificador ya fue registrado anteriormente\n");
 				}
+=======
+				agregarReque();
+>>>>>>> c0bb511243fb5958d1367d054b4c250b6f6c9bfe
 				system("pause");
 				system("cls");
 				break;
